@@ -1,42 +1,18 @@
-# .github/workflows/sync-repo.yml
-name: Repo Sync
+# .github/workflows/sync.yml
+name: Sync Fork
 
 on:
-  schedule:
-    - cron: '0 16 * * *'  # 每天 UTC 16:00（UTC+8 00:00）
   workflow_dispatch:
-
+  schedule:
+    - cron: '0 16 * * *' # 每天UTC 16:00(北京时间0:00)同步
 jobs:
-  sync-fork:
+  repo-sync:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: tgymnich/fork-sync@v1.8
         with:
-          fetch-depth: 0
-
-      - name: Configure git identity
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Set upstream remote
-        env:
-          UPSTREAM_URL: https://github.com/Dennis114514/GenshinLore.git
-        run: |
-          git remote add upstream $UPSTREAM_URL || echo "upstream already exists"
-
-      - name: Sync with upstream
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "🔄 Syncing main branch..."
-          gh repo sync --source upstream --branch main --force
-          echo "✅ Sync completed"
-
-      - name: Handle errors
-        if: failure()
-        run: |
-          echo "❌ Sync failed. Check logs for details."
-          exit 1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          owner: Dennis114514
+          head: main 
+          base: main 
+          repo: GenshinLore
