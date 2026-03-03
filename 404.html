@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404-这个页面找不到了</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            background: #393b40;
+            font-family: "Microsoft YaHei", Arial, sans-serif
+        }
+
+        #frame {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        .error-index {
+            width: 100%;
+            max-width: 1280px
+        }
+
+        .error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh
+        }
+
+        .error__404 {
+            text-align: center;
+            color: #fff
+        }
+
+        .error__icon {
+            width: 60vh;
+            max-width: 500px;
+            height: auto;
+            display: block;
+            margin: 0 auto
+        }
+
+        .error__word {
+            margin-top: 30px
+        }
+
+        .error__title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #fff
+        }
+
+        .error__sen {
+            margin-bottom: 30px
+        }
+
+        .error__content {
+            font-size: 18px;
+            color: #ccc;
+            margin: 10px 0;
+            line-height: 1.5
+        }
+
+        .error__star {
+            width: 32px;
+            height: 32px;
+            margin: 20px auto;
+            display: block
+        }
+
+        .error__backlink {
+            display: block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 24px;
+            line-height: 32px;
+            opacity: .8
+        }
+
+        .error__backlink:hover {
+            opacity: 1
+        }
+
+        .error__pic--404 {
+            height: 25vh;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto
+        }
+
+        @media screen and (max-height: 900px) {
+            .error__icon {
+                width: 45vh
+            }
+
+            .error__pic--404 {
+                height: 22vh
+            }
+        }
+
+        @media screen and (max-height: 800px) {
+            .error__pic--404 {
+                display: none
+            }
+        }
+
+        @media screen and (max-height: 700px) {
+            .error__title {
+                margin: 24px 0 12px;
+                font-size: 22px;
+                line-height: 30px
+            }
+
+            .error__content {
+                font-size: 16px;
+                line-height: 24px
+            }
+
+            .error__star {
+                width: 22px;
+                height: 22px;
+                margin: 0 auto
+            }
+
+            .error__backlink {
+                font-size: 20px;
+                line-height: 28px
+            }
+        }
+
+        @media screen and (max-height: 500px) {
+            .error__sen {
+                display: none
+            }
+        }
+
+        @media screen and (max-width: 750px) {
+            .error-index {
+                background: #393b40;
+                padding: 4px
+            }
+
+            .error {
+                width: calc(100vw - 8px);
+                height: calc(100vh - 8px);
+                border: 19px double orange
+            }
+
+            .error__404,
+            .error__500 {
+                width: 540px;
+                min-width: 0
+            }
+
+            .error__title {
+                margin: 24px 0;
+                font-size: 18px;
+                line-height: 24px;
+                height: auto;
+                color: #fff;
+                margin-bottom: 30px;
+                white-space: inherit
+            }
+
+            .error__icon {
+                width: 40vh;
+                max-width: 300px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="frame">
+        <div class="error-index">
+            <div class="error">
+                <div class="error__404">
+                    <div class="error__text">
+                        <img src="img/others/404.png" alt="404 Icon" class="error__icon">
+                    </div>
+                    <div class="error__word">
+                        <p class="error__title">这个页面找不到了</p>
+                        <div class="error__sen">
+                            <p class="error__content">可能跟温迪一起出游了吧</p>
+                            <p class="error__content">可能和钟离在喝茶...</p>
+                            <p class="error__content">可能被寒天之钉砸了...</p>
+                        </div>
+                        <img src="img/others/star.png" alt="Star" class="error__star">
+                        <a href="https://genshinlore.github.io/main.html" class="error__backlink">返回首页 »</a>
+                    </div>
+                    <img src="img/others/404.png" alt="404 Picture" class="error__pic--404">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
