@@ -75,32 +75,13 @@ body {
     pointer-events: none;
 }
 
-.title-text {
-    font-family: 'Khaenriah', serif;
-    font-size: 72px;
-    color: #D3BC8E;
-    letter-spacing: 8px;
-    opacity: 0;
-    text-shadow: 0 0 30px rgba(211, 188, 142, 0.5);
-    animation: particleGather 3s ease forwards;
-}
-
-@keyframes particleGather {
-    0% {
-        opacity: 0;
-        transform: translateY(20px) scale(0.5);
-        filter: blur(20px);
-    }
-    50% {
-        opacity: 0.5;
-        transform: translateY(10px) scale(0.8);
-        filter: blur(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
+#particle-canvas {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+    pointer-events: none;
 }
 
 .enter-btn {
