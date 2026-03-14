@@ -1624,7 +1624,7 @@ ruat caelum  fiat  pactum
                             let j = i + 1;
                             while (j < contentLines.length && !(contentLines[j] || '').trim()) j++;
                             const cap = (contentLines[j] || '').trim();
-                            if (cap && /^图\s*\d+/.test(cap)) {
+                            if (cap) {
                                 const p = document.createElement('p');
                                 p.className = 'image-caption';
                                 p.innerHTML = injectFootnoteTooltips(normalizeInline(cap), footnoteMap);
