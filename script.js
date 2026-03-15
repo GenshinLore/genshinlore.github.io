@@ -23,30 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const navItems = document.querySelectorAll('.nav-item');
     const indicator = document.querySelector('.nav-indicator');
     const navMenu = document.querySelector('.nav-menu');
-    
-    // 目录导航收起/展开功能
-    const tocSidebar = document.querySelector('.toc-sidebar');
-    const tocToggle = document.getElementById('toc-toggle');
-    
-    if (tocSidebar && tocToggle) {
-        // 从localStorage加载目录状态
-        const savedState = localStorage.getItem('tocCollapsed');
-        if (savedState === 'true') {
-            tocSidebar.classList.add('collapsed');
-        }
-        
-        // 收起/展开按钮点击事件
-        tocToggle.addEventListener('click', function() {
-            tocSidebar.classList.toggle('collapsed');
-            
-            // 保存状态到localStorage
-            if (tocSidebar.classList.contains('collapsed')) {
-                localStorage.setItem('tocCollapsed', 'true');
-            } else {
-                localStorage.setItem('tocCollapsed', 'false');
-            }
-        });
-    }
 
     function updateIndicator(item) {
         const itemWidth = item.offsetWidth;
@@ -184,4 +160,14 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModalFunc();
         }
     });
+
+    // TOC toggle functionality
+    const tocToggleBtn = document.getElementById('toc-toggle');
+    if (tocToggleBtn) {
+        tocToggleBtn.addEventListener('click', function() {
+            const tocList = document.getElementById('toc-list');
+            tocList.classList.toggle('collapsed');
+            this.classList.toggle('rotated');
+        });
+    }
 });
