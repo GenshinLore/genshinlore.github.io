@@ -6,17 +6,18 @@
     const COOKIE_NAME = 'user_agreement_version';
     
     // Markdown原始内容
-    const EULA_MARKDOWN = `# 最终用户许可协议 (EULA)
+    const EULA_MARKDOWN = `# 用户协议
 
 - 版本：1.0
 - 更新日期：2026年4月
 
 **重要提示：请您在使用本网站前，务必审慎阅读、充分理解本协议各条款内容。您的访问、浏览、下载、使用本网站及其任何组成部分的行为，均视为您已阅读并同意接受本协议全部条款的约束。**
+**注意：本协议不适用于“[时间线](https://genshinlore.cn/genshinbasichis)”页面，对于时间线页面的内容，原作者完全享有所有权利，在传播和使用该页面的内容时必须注明原作者和图片来源；对于时间线页面的程序代码，参照本协议进行。**
 
 ## 一、名词定义
 
-1. 本网站：指域名为genshinlore.cn的网站及其全部子页面、相关服务和数字副本，又名《日月全事》世界观手册网站版。
-2. 内容：指本网站内发布的除程序代码和UI设计之外的所有文字、图片、多媒体素材、数据汇编、表格及表述。根据其法律属性，进一步细分为：
+1. 本网站：指域名为genshinlore.cn的网站及其全部子页面、相关服务和数字副本（“[时间线](https://genshinlore.cn/genshinbasichis)”页面除外），又名《日月全事》世界观手册网站版。
+2. 内容：指本网站内发布的除程序代码和UI设计之外的所有文字、图片、多媒体素材、数据汇编、表格及表述“[时间线](https://genshinlore.cn/genshinbasichis)”页面除外）。根据其法律属性，进一步细分为：
    · 原创汇编内容：指本网站作者对游戏内分散文本进行独创性选择、编排、校对、注释而形成的具有独创性的汇编作品，其著作权由本手册作者诗漱享有。
    · 官方原始内容：指内容中涉及的所有《原神》游戏内原文、角色名称、世界观设定、游戏截图及官方美术素材，其原始版权及相关知识产权均归上海米哈游网络科技股份有限公司（以下简称“米哈游”）所有。
 3. UI设计：指本网站的用户界面设计、交互样式、页面布局、CSS样式代码及相关的视觉呈现方案。
@@ -722,6 +723,58 @@
 > copy of the Program in return for a fee.
 > 
 >                      END OF TERMS AND CONDITIONS
+>             How to Apply These Terms to Your New Programs
+> 
+>   If you develop a new program, and you want it to be of the greatest
+> possible use to the public, the best way to achieve this is to make it
+> free software which everyone can redistribute and change under these terms.
+> 
+>   To do so, attach the following notices to the program.  It is safest
+> to attach them to the start of each source file to most effectively
+> state the exclusion of warranty; and each file should have at least
+> the "copyright" line and a pointer to where the full notice is found.
+> 
+>     <one line to give the program's name and a brief idea of what it does.>
+>     Copyright (C) <year>  <name of author>
+> 
+>     This program is free software: you can redistribute it and/or modify
+>     it under the terms of the GNU General Public License as published by
+>     the Free Software Foundation, either version 3 of the License, or
+>     (at your option) any later version.
+> 
+>     This program is distributed in the hope that it will be useful,
+>     but WITHOUT ANY WARRANTY; without even the implied warranty of
+>     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>     GNU General Public License for more details.
+> 
+>     You should have received a copy of the GNU General Public License
+>     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+> 
+> Also add information on how to contact you by electronic and paper mail.
+> 
+>   If the program does terminal interaction, make it output a short
+> notice like this when it starts in an interactive mode:
+> 
+>     <program>  Copyright (C) <year>  <name of author>
+>     This program comes with ABSOLUTELY NO WARRANTY; for details type \`show w'.
+>     This is free software, and you are welcome to redistribute it
+>     under certain conditions; type \`show c' for details.
+> 
+> The hypothetical commands \`show w' and \`show c' should show the appropriate
+> parts of the General Public License.  Of course, your program's commands
+> might be different; for a GUI interface, you would use an "about box".
+> 
+>   You should also get your employer (if you work as a programmer) or school,
+> if any, to sign a "copyright disclaimer" for the program, if necessary.
+> For more information on this, and how to apply and follow the GNU GPL, see
+> <https://www.gnu.org/licenses/>.
+> 
+>   The GNU General Public License does not permit incorporating your program
+> into proprietary programs.  If your program is a subroutine library, you
+> may consider it more useful to permit linking proprietary applications with
+> the library.  If this is what you want to do, use the GNU Lesser General
+> Public License instead of this License.  But first, please read
+> <https://www.gnu.org/licenses/why-not-lgpl.html>.
 
 2. 知识共享 署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0) 许可协议原文内容
 > Attribution-NonCommercial-NoDerivatives 4.0 International
@@ -1570,11 +1623,11 @@
     function markdownToHtml(markdown) {
         let html = markdown;
         
+        // 处理原始尖括号内容，防止在渲染为HTML时被误识别为标签
+        html = html.replace(/<([^>\n]+)>/g, '&lt;$1&gt;');
+        
         // 处理代码块
         html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-        
-        // 处理内联代码
-        html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
         
         // 处理粗体
         html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');

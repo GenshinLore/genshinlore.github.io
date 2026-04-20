@@ -198,10 +198,15 @@
 .user-agreement-modal .modal-content {
     max-width: 700px;
     max-height: 85%;
+    box-sizing: border-box;
 }
 
 .user-agreement-modal .modal-body {
     max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    word-break: break-word;
+    white-space: normal;
     font-family: 'Common', sans-serif;
     font-size: 14px;
     line-height: 1.8;
