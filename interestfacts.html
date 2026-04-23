@@ -1,1 +1,370 @@
-未完工
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣味事实 - 日月全事</title>
+    <style>
+        @font-face {
+            font-family: 'Genshin';
+            src: url('fonts/genshin.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Common';
+            src: url('fonts/common.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Common', sans-serif;
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background-color: #2d2d2d;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .topbar-left:hover {
+            opacity: 0.8;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .site-title {
+            font-family: 'Genshin', serif;
+            font-size: 20px;
+            color: #D3BC8E;
+        }
+
+        .nav-menu {
+            position: relative;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+
+        .nav-item a {
+            display: block;
+            padding: 10px 15px;
+            color: #D3BC8E;
+            text-decoration: none;
+            font-family: 'Genshin', serif;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+        }
+
+        .nav-item a:hover {
+            background-color: rgba(211, 188, 142, 0.1);
+        }
+
+        .nav-item.active a {
+            background-color: rgba(211, 188, 142, 0.2);
+            border-bottom: 2px solid #D3BC8E;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-family: 'Genshin', serif;
+            font-size: 36px;
+            color: #D3BC8E;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: #8d8f93;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .facts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .fact-card {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #D3BC8E;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .fact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(211, 188, 142, 0.2);
+        }
+
+        .fact-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .fact-title {
+            font-family: 'Genshin', serif;
+            font-size: 18px;
+            color: #D3BC8E;
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .fact-indicator {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .fact-indicator.true {
+            color: #4CAF50;
+        }
+
+        .fact-indicator.false {
+            color: #f44336;
+        }
+
+        .fact-content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #e0e0e0;
+            white-space: pre-wrap;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 18px;
+            color: #D3BC8E;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #f44336;
+            font-size: 16px;
+        }
+
+        .home-footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid #3d3d3d;
+            color: #8d8f93;
+        }
+
+        .home-footer a {
+            color: #D3BC8E;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .home-footer a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .facts-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            .nav-list {
+                flex-wrap: wrap;
+            }
+
+            .nav-item a {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left" onclick="window.location.href='main.html'">
+            <img src="img/logo/genshinlogo.webp" alt="原神Logo" class="logo">
+            <span class="site-title">世界观手册</span>
+        </div>
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="main.html">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="preface.html">前言</a>
+                </li>
+                <li class="nav-item">
+                    <a href="basiclore.html">基本设定</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Teyvathis.html">提瓦特历史</a>
+                </li>
+                <li class="nav-item">
+                    <a href="history-country.html">各国历史</a>
+                </li>
+                <li class="nav-item">
+                    <a href="genshinbasichis.html">时间线</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="interestfacts.html">趣味事实</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html">关于手册</a>
+                </li>
+                <li class="nav-item">
+                    <a href="aboutsite.html">关于本站</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title">趣味事实</h1>
+        <p class="page-subtitle">探索提瓦特的有趣知识</p>
+        
+        <div id="facts-container" class="facts-container">
+            <div class="loading">加载中...</div>
+        </div>
+
+        <footer class="home-footer">
+            <p>愿风指引你们的道路</p>
+            <p><a href="https://github.com/Dennis114514/GenshinLore" target="_blank">GenshinLore</a> 2026</p>
+        </footer>
+    </main>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const FACTS_API_URL = 'https://genshinlore.cn/interestfacts.json';
+
+            // HTML转义，防止XSS攻击
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // 渲染事实卡片
+            function renderFact(fact) {
+                const card = document.createElement('div');
+                card.className = 'fact-card';
+
+                let indicatorHtml = '';
+                if (fact.isittrue === true) {
+                    indicatorHtml = '<span class="fact-indicator true">✓</span>';
+                } else if (fact.isittrue === false) {
+                    indicatorHtml = '<span class="fact-indicator false">✗</span>';
+                }
+
+                card.innerHTML = `
+                    <div class="fact-header">
+                        <div class="fact-title">${escapeHtml(fact.title)}</div>
+                        ${indicatorHtml}
+                    </div>
+                    <div class="fact-content">${escapeHtml(fact.content || fact.description || '')}</div>
+                `;
+
+                return card;
+            }
+
+            // 渲染所有事实
+            function renderFacts(facts) {
+                const container = document.getElementById('facts-container');
+                if (!container) return;
+
+                if (!facts || facts.length === 0) {
+                    container.innerHTML = '<div class="error-message">暂无数据</div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                facts.forEach(fact => {
+                    const card = renderFact(fact);
+                    container.appendChild(card);
+                });
+            }
+
+            // 从服务器获取事实数据
+            async function fetchFacts() {
+                try {
+                    const response = await fetch(FACTS_API_URL);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const facts = await response.json();
+                    return facts;
+                } catch (error) {
+                    console.error('获取趣味事实失败:', error);
+                    throw error;
+                }
+            }
+
+            // 初始化页面
+            async function initPage() {
+                const container = document.getElementById('facts-container');
+                
+                try {
+                    const facts = await fetchFacts();
+                    renderFacts(facts);
+                } catch (error) {
+                    container.innerHTML = '<div class="error-message">加载失败，请稍后重试</div>';
+                }
+            }
+
+            // 页面加载完成后初始化
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPage);
+            } else {
+                initPage();
+            }
+        })();
+    </script>
+</body>
+</html>
