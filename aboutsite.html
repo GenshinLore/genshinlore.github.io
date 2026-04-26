@@ -62,14 +62,20 @@
             display: flex;
             justify-content: space-around;
             padding: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
         .logo-item {
             text-align: center;
+            flex: 1 1 200px;
+            min-width: 150px;
+            max-width: 300px;
         }
         .logo-text {
             font-family: 'Genshin', serif;
             color: #666;
             margin-bottom: 10px;
+            font-size: 16px;
         }
         .logo-bg {
             display: inline-block;
@@ -91,6 +97,28 @@
         }
         .logo-img:hover {
             transform: scale(1.1);
+        }
+        
+        /* 移动端适配 */
+        @media screen and (max-width: 1012px) {
+            .logos-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+                gap: 30px;
+            }
+            .logo-item {
+                flex: 1 1 100%;
+                max-width: 100%;
+                width: 100%;
+            }
+            .logo-text {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            .logo-img {
+                max-height: 80px;
+            }
         }
         
         /* GitHub风格commit记录样式 */
