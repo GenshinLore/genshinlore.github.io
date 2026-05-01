@@ -197,12 +197,14 @@
 /* 用户协议弹窗专用样式 */
 .user-agreement-modal .modal-content {
     max-width: 700px;
-    max-height: 85%;
+    max-height: 85vh;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .user-agreement-modal .modal-body {
-    max-height: 500px;
+    flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
     word-break: break-word;
@@ -211,6 +213,7 @@
     font-size: 14px;
     line-height: 1.8;
     color: #4d4f53;
+    min-height: 0;
 }
 
 .user-agreement-modal .modal-body h2 {

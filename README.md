@@ -80,6 +80,8 @@ GenshinLore/
 ├── useragreement.js    #用户协议加载器
 ├── useragreementversion.json    #用户协议版本数据
 ├── watermarkDiv.js    #时间线页面保护器
+├── sitemap.xml    #网站地图
+├── md.html    #Markdown版本入口
 │
 ├── basiclore/                        # 基础世界观
 │   ├── descenders/            #降临者
@@ -159,8 +161,10 @@ GenshinLore/
 │       ├── 404.png
 │       └── star.png
 │
-└── video/                            # 背景视频
-    ├── backgroundA.mp4
-    ├── backgroundB.mp4
-    └── backgroundC.mp4
+├── video/                            # 背景视频
+│   ├── backgroundA.mp4
+│   ├── backgroundB.mp4
+│   └── backgroundC.mp4
+└── md/
+│   (各页面的markdown版本)
 ```
