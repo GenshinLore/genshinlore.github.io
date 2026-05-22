@@ -118,7 +118,7 @@
             margin: 15px 0;
         }
 
-        /* 脚注样式保持不变 */
+        /* 脚注样式 */
         .has-footnote {
             position: relative;
             display: inline-flex;
@@ -132,18 +132,20 @@
 
         .tooltip {
             position: absolute;
-            left: 100%;
+            left: auto;
             top: 0;
-            margin-left: 5px;
+            margin-left: auto;
             background-color: #4d4f53;
             color: #D3BC8E;
             padding: 10px 14px;
             border-radius: 6px;
             font-size: 14px;
             white-space: normal;
-            width: 350px;
-            max-width: 350px;
+            width: auto;
+            min-width: 250px;
+            max-width: 500px;
             opacity: 0;
+            box-sizing: border-box;
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 4000;
@@ -198,10 +200,13 @@
         </nav>
     </header>
     <main class="main-content">
-        <aside class="toc-sidebar">
-            <h3 class="toc-title">目录导航 <button class="toc-toggle-btn" id="toc-toggle">↑</button></h3>
-            <ul class="toc-list" id="toc-list">
-            </ul>
+        <aside class="toc-wrapper">
+            <aside class="toc-sidebar">
+                <h3 class="toc-title">目录导航 <button class="toc-collapse-btn" id="toc-collapse">→</button></h3>
+                <ul class="toc-list" id="toc-list">
+                </ul>
+            </aside>
+            <button class="toc-expand-btn" id="toc-expand">☰</button>
         </aside>
         
         <section class="page-content">
@@ -276,7 +281,7 @@
             </div>
         </div>
         <p>网站作者注：如果遇到非内容问题，可以在Github项目页面提交Issue</p>
-        <p style="text-align: center;"><a href="https://github.com/Dennis114514/GenshinLore" target="_blank"><img src="img/others/GenshinLore.png" alt="GenshinLore Github项目" style="max-width: 500px; cursor: pointer;"></a></p>
+        <p style="text-align: center;"><a href="https://github.com/Dennis114514/GenshinLore" target="_blank"><img src="img/others/GenshinLore.png" alt="GenshinLore Github项目" style="width:auto; max-width: 400px; cursor: pointer;"></a></p>
 
         <h3 id="section-3-3">（三）ai的局限性</h3>
         
@@ -355,6 +360,8 @@
         <aaa style="text-align: right">——千织传说任务，当他们谈起今夜</aaa></p>
 
         <h3 id="section-4-2">（二）对神人评论的预制回复</h3>
+        <p>原神是一款具有4D体验的游戏。「原神」一词，可以通过调换语序的方式，直接倒置为它的对立面「神原」，即「深渊」。虽然手册中对「深渊」的描述较为简略，但在该板块，我呈现的恰恰就是「深渊」的核心设定——未被选择的恨意。围绕原神发酵的大部分节奏，几乎都是出于这种「深渊力」对游戏性质、游戏文本的篡改和歪曲。「古斯托特」再怎么绘声绘色地模拟修库特尔和历代火神，它终究无法被提瓦特所接纳，终究属于「世界之外」。但日月全事之「全」，恰恰在于，它不但记载属于日月的事迹，也同样将深渊力——这个构成性的例外——囊括于世界之内。换言之，倘若没有「深渊」作为死亡驱力，激起反复破坏规则禁忌的快感，那便无法结构出「原神」文化生产的规则本身。</p>
+        <p>一句话，若要了解原神的基础架构，不能不涉猎深渊。「向着星辰」，同样也要「向着深渊」。</p>
         <p>顺带一提，随着热度攀升，不可避免地会引来一些荒谬的评论。在此，我对这些评论一次性发出预制回复，予以警示。</p>
         <table>
     <tr>
@@ -554,30 +561,51 @@
                 a.className = 'toc-link level-' + item.level;
                 a.textContent = item.text;
                 
-                a.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.getElementById(item.id);
-                    if (target) {
-                        const offset = 100;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        updateTocHighlight(item.id);
-                    }
-                });
-                
                 li.appendChild(a);
                 tocList.appendChild(li);
             });
             
-            // 折叠/展开功能
-            if (tocToggle) {
-                tocToggle.addEventListener('click', function() {
-                    tocList.classList.toggle('collapsed');
-                    this.classList.toggle('rotated');
+            // 为目录链接添加平滑滚动与高亮同步
+            document.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').slice(1);
+                    const targetEl = document.getElementById(targetId);
+                    if (!targetEl) return;
+                    const topbarHeight = 70;
+                    const rect = targetEl.getBoundingClientRect();
+                    const targetPosition = window.scrollY + rect.top - topbarHeight - 16;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    if (typeof updateTocHighlight === 'function') {
+                        updateTocHighlight(targetId);
+                    }
+
+                    // 若移动端目录为打开状态，则收起
+                    const tocSidebarEl = document.querySelector('.toc-sidebar');
+                    const tocOverlayEl = document.querySelector('.mobile-toc-overlay');
+                    const mobileTocBtn = document.querySelector('.mobile-toc-btn');
+                    if (tocSidebarEl && tocSidebarEl.classList.contains('mobile-active')) {
+                        tocSidebarEl.classList.remove('mobile-active');
+                        if (tocOverlayEl) tocOverlayEl.classList.remove('active');
+                        document.body.style.overflow = '';
+                        if (mobileTocBtn) setTimeout(() => mobileTocBtn.classList.remove('hidden'), 350);
+                    }
+                });
+            });
+
+            // 确保收起/展开按钮已绑定（兼容 script.js 中的 collapseToc/expandToc）
+            const localCollapseBtn = document.getElementById('toc-collapse');
+            const localExpandBtn = document.getElementById('toc-expand');
+            if (localCollapseBtn) {
+                localCollapseBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (typeof collapseToc === 'function') collapseToc();
+                });
+            }
+            if (localExpandBtn) {
+                localExpandBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (typeof expandToc === 'function') expandToc();
                 });
             }
             
@@ -664,6 +692,11 @@
                     button.style.opacity = '0.6';
                 }, 2000);
             });
+        }
+        
+        // 初始化移动端目录导航（确保目录DOM创建完成后调用）
+        if (typeof initMobileToc === 'function') {
+            initMobileToc();
         }
     </script>
 </body>

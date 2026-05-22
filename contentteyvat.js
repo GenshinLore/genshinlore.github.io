@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
 与你们将要实现的伟业相比，这颗渺小星球上的一切都显得那么微不足道。  
 我们由衷地羡慕你们，为了真理与进步，向着光明的未来不断前行吧！<sup>1</sup>  
 ## 第一幕 七王时代<sup>2</sup>
+>> 你是万千星辰中的一颗，于我而言却是整个世界。
+>> ——最好的伙伴，派蒙
 ·最初
 提瓦特最初的主人是龙，龙族有七个元素龙王，而龙族的至高首领是尼伯龙根。尼伯龙根随世界诞生，香水海孕育了这条始源之龙。
 
@@ -643,7 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const table = document.createElement('table');
-        table.className = 'lightrelam-table';
+        table.className = 'common-table';
 
         // 检查表头是否有内容
         const hasHeaderContent = headerCells.some(cell => !isBlankCell(cell));

@@ -41,131 +41,121 @@
 | `**文字**` | 红色文字 |
 | `<sup>数字</sup>` | 注释角标 |
 | `> ` | 引用文字 |
-| `> 数字` | 注释详细内容，数字需与正文中的 `<sup></sup>` 对应 |
+| `>> ` | 两部分内容之间插入的文字 |
+| `> 数字` | 注释详细内容，数字需与正文中的 `<sup></sup>` 对应。如果存在链接，需要在`linkMap`里添加，最终显示的内容为在`linkMap`字符串中添加的内容 |
 | `<br>` | 换行，表格中也可以使用 |
 | ` <br />` | 表格中的空单元格（注意 `/` 前有一个空格） |
+|`\|表格内容\| `|表格|
+|`\|\| `|表格空位，如果该位置是表头，且所有表头全为空白，则不会渲染；如果该位置是表格内部，则会以此位置向右和向下查找所有空白位置并合并这些单元格|
+| `[Image](图片地址)` |图片，使用时需要将图片放在对应的目录中，每一个页面都有专门的图片目录，可直接复制该页面上已有的图片地址并将最后的文件名改成添加的图片。如果在紧接着的下一行有文字，则这行文字会作为图片底下的图片描述显示|
+
 
 ## 镜像站列表
+注意：镜像站的内容**不一定为最新内容**，访问体验也不一定比主站好，非必要情况下请**优先访问主站**。
+
 | 地址 | 来源 | 说明 |
 |---|---|---|
 | genshinlore.cn | Dennis114514 | 主站（首选） |
 | genshinlore.pages.dev | Dennis114514 | Cloudflare Pages 默认域名，国内部分地区无法访问 |
 | genshinlore.github.io | Dennis114514 | 部署在 GitHub Pages 上的镜像站，每 24 小时同步一次 |
 |genshinlore.hut.ao|Masterain98|由[Masterain98](https://github.com/Masterain98)在 Netlify部署的镜像站，国内访问体验较好，感谢他对本网站的支持|
+|genshinlore.peacefuly.top|MCheping8108|参考[Issue#12](https://github.com/Dennis114514/GenshinLore/issues/12)|
+|genshinlore.makotowu.cn|makotowu|参考[PullRequest#13](https://github.com/Dennis114514/GenshinLore/pull/13)，注意该镜像站为Vitepress测试站点，其内容**与主站有较大的不同**，仅用于学习交流|
 
 ## 项目结构
 ```
-GenshinLore/
-├── .gitignore    #防止下游仓库配置的 actions 被覆盖
-├── 404.html    #404 错误页面
-├── BingSiteAuth.xml    #Bing 搜索引擎验证
-├── Teyvathis.html    #“提瓦特历史”页面
-├── _headers    #预加载字体资源
-├── about.html    #关于手册页面
-├── aboutsite.html    #关于网站页面
-├── basiclore.html    #基础设定入口页
-├── genshinbasichis.html    #时间线页面
-├── history-country.html    #各国历史入口页
-├── index.html    #起始页
-├── interestfacts.html    #制作组的小巧思页面
-├── interestfacts.json    #制作组的小巧思数据
-├── main.html    #主页
-├── notice.js    #公告加载器
-├── notice.json    #公告数据
-├── preface.html    #前言页面
-├── script-index.js    #起始页动画
-├── script.js    #全站 JavaScript
-├── somewords.html    #杂谈页面
-├── styles-index.css   #起始页 CSS
-├── styles.css    #全站 CSS
-├── useragreement.js    #用户协议加载器
-├── useragreementversion.json    #用户协议版本数据
-├── watermarkDiv.js    #时间线页面保护器
-├── sitemap.xml    #网站地图
-├── md.html    #Markdown版本入口
-│
-├── basiclore/                        # 基础世界观
-│   ├── descenders/            #降临者
+<!-- TREE-START -->
+.
+├── .github
+│   └── workflows
+│       └── main.yml
+├── basiclore
+│   ├── descenders
 │   │   └── base.html
-│   ├── facilities/                 #大地和装置
+│   ├── facilities
 │   │   └── base.html
-│   ├── god/                         #魔神
+│   ├── god
 │   │   └── base.html
-│   ├── lightrelam/              #龙族和光界
+│   ├── lightrelam
 │   │   └── base.html
-│   ├── principles/              #天理和人界
+│   ├── principles
 │   │   └── base.html
-│   ├── stars/                      #星空
+│   ├── stars
 │   │   └── base.html
-│   └── void/                        #深渊
+│   └── void
 │       └── base.html
-│
-├── fonts/                            # 字体资源
+├── docimg
+│   ├── icon.png
+│   └── icondark.png
+├── fonts
 │   ├── Khaenriah.woff2
 │   ├── common.woff2
 │   └── genshin.woff2
-│
-├── his/                              # 各国历史
-│   ├── Fontaine/
+├── his
+│   ├── Fontaine
 │   │   ├── base.html
 │   │   └── content.js
-│   ├── Inazuma/
+│   ├── Inazuma
 │   │   ├── base.html
 │   │   └── content.js
-│   ├── Khaenriah/
+│   ├── Khaenriah
 │   │   ├── base.html
 │   │   └── content.js
-│   ├── Liyue/
+│   ├── Liyue
 │   │   ├── base.html
 │   │   └── content.js
-│   ├── Mondstadt/
+│   ├── Mondstadt
 │   │   └── base.html
-│   ├── Natlan/
+│   ├── Natlan
 │   │   ├── base.html
 │   │   └── content.js
-│   ├── Snezhnaya/
+│   ├── Snezhnaya
 │   │   ├── base.html
 │   │   └── content.js
-│   └── Sumeru/
+│   └── Sumeru
 │       ├── base.html
 │       └── content.js
-│
-├── img/                              # 图片资源
-│   ├── context/                      # 内容配图
-│   │   ├── about/                    (2 张)
-│   │   ├── basiclore/               (1 张)
-│   │   ├── Fontaine/                (8 张)
-│   │   ├── gallery/                 (1 张)
-│   │   ├── Inazuma/                 (10 张)
-│   │   ├── Liyue/                   (5 张)
-│   │   ├── Mondstadt/               (26 张)
-│   │   ├── Natlan/                  (23 张)
-│   │   ├── Snezhnaya/               (2 张)
-│   │   ├── Sumeru/                  (7 张)
-│   │   └── teyvathis/               (2 张)
-│   ├── country/                      # 各国背景 & 角色
-│   │   ├── fontaine-bg.jpg / fontaine-char.png
-│   │   ├── inazuma-bg.jpg / inazuma-char.png
-│   │   ├── liyue-bg.jpg / liyue-char.png
-│   │   ├── mondstadt-bg.jpg / mondstadt-char.png
-│   │   ├── natlan-bg.jpg / natlan-char.png
-│   │   └── sumeru-bg.jpg / sumeru-char.png
-│   ├── logo/                         # Logo
-│   │   ├── Fontaine / Inazuma / Khaenriah / Liyue
-│   │   ├── Mondstadt / Natlan / Snezhnaya / Sumeru
-│   │   ├── genshinlogo.webp
-│   │   └── website/
-│   │       ├── Cloudflare.png
-│   │       ├── Github.png
-│   │       └── Rainyun.png
-│   └── others/
-│       ├── 404.png
-│       └── star.png
-│
-├── video/                            # 背景视频
-│   ├── backgroundA.mp4
-│   ├── backgroundB.mp4
-│   └── backgroundC.mp4
-└── md/
-│   (各页面的markdown版本)
+├── img (115 files)
+├── md
+│   ├── Fontaine.md
+│   ├── Inazuma.md
+│   ├── Khaenriah.md
+│   ├── Liyue.md
+│   ├── Natlan.md
+│   ├── Snezhnaya.md
+│   ├── Sumeru.md
+│   ├── Teyvathis.md
+│   ├── aboutsite.md
+│   └── somewords.md
+├── .gitignore
+├── 404.html
+├── BingSiteAuth.xml
+├── LICENCE.md
+├── README.md
+├── Teyvathis.html
+├── _headers
+├── about.html
+├── aboutsite.html
+├── basiclore.html
+├── contentteyvat.js
+├── genshinbasichis.html
+├── history-country.html
+├── index.html
+├── interestfacts.html
+├── interestfacts.json
+├── main.html
+├── md.html
+├── notice.js
+├── notice.json
+├── preface.html
+├── script-index.js
+├── script.js
+├── sitemap.xml
+├── somewords.html
+├── styles-index.css
+├── styles.css
+├── useragreement.js
+├── useragreementversion.json
+└── watermarkDiv.js
+<!-- TREE-END -->
 ```
