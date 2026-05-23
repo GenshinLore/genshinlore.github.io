@@ -2146,3 +2146,71 @@ body {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+
+.second-text {
+    color: #8d8f93;
+    font-size: 13px!important;
+    line-height: 1.8;
+    padding-left: 12px;
+    border-left: 3px solid #c0c0c0!important;
+    margin: 15px 0 15px 70px;
+}
+
+.second-intro {
+    position: relative;
+    display: grid;
+    color: #000000;
+    line-height: 1.8;
+    padding-left: 12px;
+    margin: 15px 0 0 12px !important;
+}
+
+.second-intro .bg-img {
+    grid-area: 1 / 1;
+    width: 100%;
+    pointer-events: none;
+}
+
+.second-intro .intro-content {
+    grid-area: 1 / 1;
+    z-index: 1;
+    padding-left: 50%;
+}
+
+.second-intro .intro-content pre {
+    font-family: 'Genshin', sans-serif;
+    color: #000000;
+    font-size: 16px !important;
+    line-height: 45px !important;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: auto;
+}
+
+.intro-bg {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Common', sans-serif;
+    font-size: 15px;
+    color: #4d4f53;
+    text-align: center;
+    margin: 30px 0 50px;
+    line-height: 1.8;
+    margin-top: 10% !important;
+}
+
+.intro-bg .bg-top {
+    width: 100vw;
+    align-self: center;
+    pointer-events: none;
+}
+
+.intro-bg .intro-content {
+    z-index: 1;
+}
+
+.intro-bg .bg-bottom {
+    width: 100vw;
+    align-self: center;
+    pointer-events: none;
+}
