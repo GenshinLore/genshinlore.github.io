@@ -1473,6 +1473,11 @@ body {
     border-radius: 0 4px 4px 0;
 }
 
+/* 当 quote-block 的父元素是 timeline-section 且自身不是 timeline-item 时 */
+.timeline-section > .quote-block:not(.timeline-item) {
+    margin: 15px 0 15px 70px;
+}
+
 .quote-block:hover {
     background-color: #efefef;
     border-left-color: #4d4f53;
