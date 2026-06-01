@@ -2,7 +2,7 @@
 
 ducam  regina  mea  gloria  haud  pluribus  impar
 
-![Introbg0]()
+![Introbg0](../img/context/Snezhnaya/SnezhnayaIntroBg0.png)
 她
 是人再也不会去爱的神，
 她
@@ -16,9 +16,7 @@ ducam  regina  mea  gloria  haud  pluribus  impar
 那心中一定都有炽烈的欲望吧？
 那么，
 替我燃烧旧世界吧。
-![Introbg1]()
-
-
+![Introbg1](../img/context/Snezhnaya/SnezhnayaIntroBg1.png)
 
 ## 一、冰龙时期
 
