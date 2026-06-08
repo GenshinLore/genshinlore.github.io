@@ -287,9 +287,9 @@ CL-02：很好。你几乎让我感到惋惜了，第八席，也许已经让我
 |------|------|
 | 「焰主」<br>修库特尔 |火龙王，圣王，被希巴拉克击杀 |
 | 「盗火贤者」<br>库库尔坎/瓦萨克拉胡巴肯 | 火龙王的手下，谋划了渎神的「进化」之道 |
-| 「谋主」「圣主」<br>奥奇坎/蒂沙库恩·卡洛穆特<sup>13</sup>/雅豪卡阿胡克 | 盗火贤者的子嗣，半人半龙 |
+| 「谋主」「圣主」<br>奥奇坎/蒂沙库恩·卡洛穆特<sup>13</sup>/雅豪卡阿胡克<sup>42</sup>|盗火贤者的子嗣，半人半龙|
 | 「初代火神」<br>希巴拉克 | 人类，在斩杀火龙王后成为初代火神 |
-| 「愚人」<br>察阿克 | 人类，取火之人，圣火的看守者 |
+| 「愚人」<br>察阿克 | 人类，取火之人 |
 | 夜神 | 天使<br>夜神之国也被叫做「大灵的国度」「夜晚的国度」，是各部族的大灵的所在之地，也是纳塔人死后去的地方。夜神之国具有相当神秘的色彩。对现实世界的认知在夜神之国不起作用，基尼奇也称夜神之国是「介于肉体与灵魂，生命与死亡之间的，非常神秘的地方」。<br>夜神之国的大灵表现为图腾柱，其中六个主要的图腾柱是各部族大灵的本体。还有许多其他的图腾柱是共享大灵意识的分身，它们使大灵的意识得以覆盖整个夜神之国，以便找到纳塔人的灵魂。 |
 
 
@@ -1762,6 +1762,7 @@ CL-02：很好。你几乎让我感到惋惜了，第八席，也许已经让我
 > 39 乘浪的回旋，苍纹角杯
 > 40 渡过烈火的贤人
 > 41 烬城勇者绘卷
+> 42 意为圣火的看守者
 `);
             // __MD_PARTS_END__
            const md = MD_PARTS.join('\n');
@@ -2047,9 +2048,9 @@ CL-02：很好。你几乎让我感到惋惜了，第八席，也许已经让我
                     i++;
                 }
                 const block = document.createElement('div');
-                block.style.cssText = 'border-left:3px solid #6B8E23;padding:8px 16px;margin:12px 0;background:#1a1a1a;border-radius:0 4px 4px 0;';
+                block.className = 'second-text';
                 const cleaned = q.map(l => l.replace(/^>\s?/, '').trimEnd()).filter(l => l.trim().length > 0);
-                block.innerHTML = cleaned.map(l => `<p style="margin:0 0 8px;color:#ccc;font-style:italic;">${injectFootnoteTooltips(normalizeInline(l), footnoteMap)}</p>`).join('');
+                block.innerHTML = cleaned.map(l => `<p class="second-text">${injectFootnoteTooltips(normalizeInline(l), footnoteMap)}</p>`).join('');
                 container.appendChild(block);
                 continue;
             }
@@ -2076,7 +2077,7 @@ CL-02：很好。你几乎让我感到惋惜了，第八席，也许已经让我
         const replacer = (_, n) => {
             const key = String(n);
             const tip = footnoteMap[key] || '';
-            return `<p class="has-footnote"><sup>${key}</sup><span class="tooltip">${tip}</span></p>`;
+            return `<p class="has-footnote"><sup>*</sup><span class="tooltip">${tip}</span></p>`;
         };
 
         return html
@@ -2228,7 +2229,7 @@ CL-02：很好。你几乎让我感到惋惜了，第八席，也许已经让我
                         if (mergedBody[r][c].skip) continue;
 
                         const td = document.createElement('td');
-                        if (c === 1 || c === 3) td.classList.add('text-left');
+                        if (c === c) td.classList.add('text-left');
                         const rs = mergedBody[r][c].rowspan;
                         const cs = mergedBody[r][c].colspan;
                         if (rs > 1) td.rowSpan = rs;
@@ -2332,7 +2333,7 @@ CL-02：很好。你几乎让我感到惋惜了，第八席，也许已经让我
                 let i = 0;
 
                 // 标题
-                let titleText = '蒙德';
+                let titleText = '纳塔';
                 if ((contentLines[i] || '').startsWith('# ')) {
                     titleText = (contentLines[i] || '').slice(2).trim();
                     i++;
@@ -2466,25 +2467,6 @@ CL-02：很好。你几乎让我感到惋惜了，第八席，也许已经让我
 
                     block.addEventListener('click', () => openModal(quoteData[quoteId].content));
                     return block;
-                }
-
-                function renderImage(imgLine) {
-                    const m = imgLine.match(/image(\d+)\.png/i);
-                    if (!m) return null;
-                    const file = `image${m[1]}.png`;
-
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'timeline-image';
-
-                    const img = document.createElement('img');
-                    img.src = `../../img/context/Fontaine/${file}`; //图片路径
-                    img.alt = file;
-                    img.style.maxWidth = 'calc(100% - 100px)';
-                    img.style.display = 'block';
-                    img.style.margin = '0 auto';
-                    wrapper.appendChild(img);
-
-                    return wrapper;
                 }
 
                 function isTableLine(line) {
@@ -2694,27 +2676,6 @@ CL-02：很好。你几乎让我感到惋惜了，第八席，也许已经让我
                             i++;
                         }
                         appendToCurrent(renderQuoteBlock(q));
-                        continue;
-                    }
-
-                    // 图片（含 [Image] 格式，排除已处理的特殊标记）
-                    if ((trimmed.includes('[Image]') || trimmed.includes('![Image]')) && !/!\[(Imagebg|Introbg)/i.test(trimmed)) {
-                        const img = renderImage(trimmed);
-                        if (img) {
-                            appendToCurrent(img);
-                            let j = i + 1;
-                            while (j < contentLines.length && !(contentLines[j] || '').trim()) j++;
-                            const cap = (contentLines[j] || '').trim();
-                            if (cap) {
-                                const p = document.createElement('p');
-                                p.className = 'image-caption';
-                                p.innerHTML = injectFootnoteTooltips(normalizeInline(cap), footnoteMap);
-                                img.appendChild(p);
-                                i = j + 1;
-                                continue;
-                            }
-                        }
-                        i++;
                         continue;
                     }
 
