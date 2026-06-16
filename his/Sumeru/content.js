@@ -1548,11 +1548,7 @@ sub floreis  lumen  sagacitatis
      */
     function escapeHtml(text) {
         return text
-            .replaceAll('&', '&amp;')
-            .replaceAll('<', '&lt;')
-            .replaceAll('>', '&gt;')
-            .replaceAll('"', '&quot;')
-            .replaceAll("'", '&#39;');
+
     }
 
     /**
@@ -2340,7 +2336,12 @@ sub floreis  lumen  sagacitatis
                             const fixedSrc = imgPath.replace(/^\/?\.\.\//, '../../').replaceAll('\\', '/');
                             const div = document.createElement('div');
                             div.className = 'second-intro';
-                            div.innerHTML = `<img class="bg-img" src="${fixedSrc}" alt=""><div class="intro-content"><pre>${escapeHtml(codeLines.join('\n'))}</pre></div>`;
+
+                            const codeHtml = codeLines
+                                .map(line => normalizeInline(line))
+                                .join('\n');
+
+                            div.innerHTML = `<img class="bg-img" src="${fixedSrc}" alt=""><div class="intro-content"><pre>${codeHtml}</pre></div>`;
                             appendToCurrent(div);
                         }
                         continue;
