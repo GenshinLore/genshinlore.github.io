@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return text
 
     }
-
     /**
      * 行内文本标准化函数
      * 将Markdown格式转换为HTML，并处理特殊标记
@@ -943,6 +942,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
 
+                    // Mermaid 图表代码块
+                    if (/^```\s*mermaid\b/i.test(trimmed)) {
+                        i++;
+                        const codeLines = [];
+                        while (i < contentLines.length && !/^```/.test((contentLines[i] || '').trim())) {
+                            codeLines.push(contentLines[i] || '');
+                            i++;
+                        }
+                        if (i < contentLines.length && /^```/.test((contentLines[i] || '').trim())) i++;
+                        const code = codeLines.join('\n');
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'timeline-mermaid';
+                        wrapper.style.cssText = 'text-align:center;margin:16px 0;';
+                        wrapper.innerHTML = `<pre class="mermaid" style="max-width:calc(100% - 100px);display:block;margin:0 auto;background:transparent;border:none;">${escapeHtml(code)}</pre>`;
+                        appendToCurrent(wrapper);
+                        continue;
+                    }
+
                     // 引文（blockquote）
                     if (trimmed.startsWith('>')) {
                         const q = [];
@@ -1068,6 +1085,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!md.trim()) {
                     introEl.innerHTML = '<p>（内容为空）</p>';
                     return;
+                }
+
+                // 如果 Markdown 中包含 mermaid 代码块，则动态加载 mermaid 脚本（只加载一次）
+                try {
+                    if (/```\s*mermaid\b/i.test(md)) {
+                        if (!document.querySelector('script[data-mermaid]')) {
+                            const s = document.createElement('script');
+                            s.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+                            s.setAttribute('data-mermaid', '1');
+                            s.onload = () => { try { if (window.mermaid && typeof window.mermaid.initialize === 'function') window.mermaid.initialize({ startOnLoad: true }); } catch (e) { console.warn('mermaid init failed', e); } };
+                            document.head.appendChild(s);
+                        }
+                    }
+                } catch (e) {
+                    console.warn('mermaid check failed', e);
                 }
 
                 const { tocItems } = parseMarkdownToPage(md);
