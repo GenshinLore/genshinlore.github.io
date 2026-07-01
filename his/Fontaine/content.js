@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * HTML转义函数
-     * 将特殊字符转换为HTML实体，防止XSS攻击
+     * 由于需要在markdown中兼容内嵌HTML，此函数废弃
      * @param {string} text - 待转义的文本
      * @returns {string} - 转义后的文本
      */
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const replacer = (_, n) => {
             const key = String(n);
             const tip = footnoteMap[key] || '';
-            return `<p class="has-footnote"><sup>*</sup><span class="tooltip">${tip}</span></p>`;
+            return `<span class="has-footnote"><sup>*</sup><span class="tooltip">${tip}</span></span>`;
         };
 
         return html
