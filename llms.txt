@@ -55,7 +55,7 @@
 
 ## Optional
 
-## Key features
+### Key features
 
 - **Primary Sources Only** – Directly based on in-game text, no fan-fiction.
 - **Uncertainty Marked** – Ambiguous information is clearly noted.
@@ -63,7 +63,7 @@
 - **Single-Author Consistency** – Uniform formatting, unified timeline, and minimal conflicting information.
 - **Structured Advantage**: All content is available in Markdown format.
 
-## Site structure overview
+### Site structure overview
 
 URL base: `https://genshinlore.cn`
 
